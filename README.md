@@ -10,7 +10,7 @@
 
 #### 安装教程
 
-1.  全局安装docsify-cli
+1.  全局安装 <code> docsify-cli </code>
 ```javascript
   npm i docsify-cli -g
 ```

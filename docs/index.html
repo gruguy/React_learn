@@ -8,28 +8,33 @@
     <meta name="description" content="Description">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+    <style>
+        html,
+        body {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
-    <nav>
-        <a href="#/">EN</a>
-        <a href="#/zh-cn/">中文</a>
-    </nav>
     <div id="app"></div>
     <script>
         window.$docsify = {
             name: 'React Learn',
             repo: 'https://github.com/gruguy/React_learn.git',
             loadSidebar: true,
-            loadNavbar: true,
-            coverpage: true
+            subMaxLevel: 2
+                // loadNavbar: true,
+                // coverpage: true
 
         }
     </script>
     <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
     <!-- highlighting -->
-    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
+
+    <script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+    <script src="//unpkg.com/prismjs/components/prism-javascript.js"></script>
+    <script src="//unpkg.com/prismjs/components/prism-sql.js"></script>
 </body>
 
 </html>
