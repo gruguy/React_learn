@@ -2,7 +2,7 @@
 
 ## JSX简介
 
-```
+```javascript
 const element = <h1>Hello， world</h1>;
 ```
 上面这段代码，既不是字符串，也不是HTML。
@@ -15,7 +15,7 @@ React 认为渲染逻辑本质上与其他UI逻辑内在耦合，比如，在UI�
 
 #### 在JSX中嵌入表达式
 
-```
+```javascript
 const name = 'Gruguy';
 const element = <h1>Hello, {name}</h1>;
 
@@ -26,7 +26,7 @@ ReactDOM.render(
 ```
 在JSX语法中，你可以在大括号内放置任何有效的Javascript表达式。如： 2 + 2，user.firstName 或 formatName(user)的结果，并将结果嵌入到 h1 元素中。
 
-```
+```javascript
 function formatName(user){
   return user.firstName + ' ' + user.lastName;
 }
@@ -56,7 +56,7 @@ ReactDOM.render(
 
 也就是说，可以在if语句和for循环的代码块中使用JSX，将JSX赋值给变量，把JSX当做参数传入，以及从函数中返回JSX：
 
-```
+```javascript
 function getGreeting(user){
   if(user){
     return <h1>Hello, {formatName(user)}!</h1>;
@@ -67,7 +67,7 @@ function getGreeting(user){
 
 #### JSX特定属性
 可以通过使用引号来将属性值指定为字符串字面量，也可以使用大括号，来将属性值中插入一个JavaScript表达式：
-```
+```javascript
 const e1 = <div tabIndex = "1">
 
 const e2 = <img src={user.avatarUrl}></img>;
@@ -84,13 +84,13 @@ const e2 = <img src={user.avatarUrl}></img>;
 
 假设HTML文件某处有一个<code>div</code>:
 
-```
+```html
 <div id="root"></div>
 ```
 
 上面的节点，称之为根 DOM节点，在该节点上的所有内容都将由React DOM 管理。想要将一个React元素渲染到根DOM节点，只需要把它们一起传进<code>ReactDOM.render()</code>:
 
-```
+```javascript
 const element = <h1>Hello, world</h1>;
 ReactDom.render(element,document.getElementById('root'));
 ```
@@ -105,7 +105,7 @@ React DOM会将元素和它的子元素与它们之前的状态进行比较，�
 
 #### 函数组件和class组件
 定义一个JavaScript函数：
-```
+```javascript
 function Welcome(props){
   return <h1>Hello, {props.name}</h1>;
 }
@@ -113,7 +113,7 @@ function Welcome(props){
 该函数是一个有效的React组件，因为它接收位以待有数据的props对象并返回一个React元素。这类组件成为“函数组件”，本质上就是JavaScript函数。
 
 还可以使用ES6的class来定义组件：
-```
+```javascript
 class Welcome extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
@@ -127,13 +127,13 @@ class Welcome extends React.Component {
 
 React元素可以使DOM标签，也可以是用户自定义的组件：
 
-```
+```javascript
 const element = <Welcome name="Sara" />;
 ```
 
 当React元素为用户自定义组件时，它会将JSX所接受的属性（attributes）以及子组件（children）转换为单个对象传递给组件，这个对象被称之为“props”。
 
-```
+```javascript
 function Welcome(props){
   return <h1>Hello, {props.name}</h1>;
 }
@@ -149,7 +149,7 @@ ReactDOM.remder(
 
 组件可以在其输出中引用其他组件。这就可以让我们用同意组建来抽象出任意层次的细节。按钮、表单、对话框，甚至整个屏幕的内容：在React应用程序中，这些通常都会以组件的形式表示。
 
-```
+```javascript
 function Welcome(props){
   return <h1>Hello, {props.name}</h1>;
 }
@@ -179,7 +179,7 @@ ReactDOM.render(
 
 将组件拆分为更小的组件。
 
-```
+```javascript
 function Comment(props){
   return (
     <div className="Comment">
@@ -206,7 +206,7 @@ function Comment(props){
 
 首先将Avatar组件提取出来
 
-```
+```javascript
 function Avatar(props){
   return (
     <img className="Avatar"
@@ -221,7 +221,7 @@ Avatar 不许知道它在Comment组建中是如何渲染的。因此我们给他
 
 命名组建应该从组件自身角度命名props，而不是依赖上下文命名。
 
-```
+```javascript
 function Comment(props){
   return (
     <div className="Comment">
@@ -244,7 +244,7 @@ function Comment(props){
 
 接下来提取UserInfo组件，该组件在用户名旁渲染Avatar 组件：
 
-```
+```javascript
 function UserInfo(props){
   return (
     <div className="UserInfo">
@@ -259,7 +259,7 @@ function UserInfo(props){
 
 进一步简化Comment 组件：
 
-```
+```javascript
 function Comment(props){
   <div className="Comment">
     <UserInfo user={props.author} />
@@ -285,7 +285,7 @@ function Comment(props){
 
 在元素渲染的章节中，我们只了解了一种更新UI界面的方法，通过调用ReactDOM.render() 来修改我们想要渲染的元素：
 
-```
+```javascript
 function tick(){
   const element = (
     <div>
@@ -306,7 +306,7 @@ setInterval(tick, 1000);
 
 本章节中，我们将学习如何封装真正可复用的clock组件。它将设置自己的计时器并每秒更新一次：
 
-```
+```javascript
 function Clock(props){
   return (
     <div>
@@ -330,7 +330,7 @@ setInterval(tick, 1000);
 
 理想情况下，我们希望只编写一次代码，便可以让Clock组件自我更新：
 
-```
+```javascript
 ReactDOM.render(
   <Clock />,
   document.getElementById('root')
@@ -351,7 +351,7 @@ State与props 类似，但是state是私有的，并且完全受控于当前组�
 * 4. 在render()方法中使用this.props替换props。
 * 5. 删除剩余的空函数声明。
 
-```
+```javascript
 class Clock extends React.Component {
   render() {
     return (
@@ -375,7 +375,7 @@ class Clock extends React.Component {
 我们通过三步将props移动到state中：
 1. 吧render() 方法中的this.props.date 替换成 this.state.date:
 
-```
+```javascript
 class Clock extends React.Component {
   render() {
     return (
@@ -390,7 +390,7 @@ class Clock extends React.Component {
 
 2. 添加一个class构造函数，然后在该函数中为this.state附初始值：
 
-```
+```javascript
 class Clock extends React.Component {
   constructor(props) {
     super(props);
@@ -411,7 +411,7 @@ class Clock extends React.Component {
 
 3. 移除 <code><Clock /></code> 元素中的 date 属性：
 
-```
+```javascript
 ReactDOM.render(
   <Clock />,
   document.getElementById('root')
@@ -427,7 +427,7 @@ ReactDOM.render(
 
 同时，当DOM中Clock组件被删除的时候，应该清除定时器。这在React中被称为“卸载（unmount）”。
 
-```
+```javascript
 class Clock extends React.Component {
   constructor(props) {
     super(props);
@@ -452,7 +452,7 @@ class Clock extends React.Component {
 上面两个方法叫做“生命周期方法”。
 
 componentDidMount() 方法会在组件已经渲染到DOM后运行，所以最好这个时候设置定时器：
-```
+```javascript
 componentDidMount() {
   this.timerID = setInterval(
     () => this.tick(),
@@ -464,14 +464,14 @@ componentDidMount() {
 接下来把计时器的ID保存到this之中（this.timerID）。
 
 我们会在 componentWillUnmount() 生命周期方法中清除计时器：
-```
+```javascript
 componentWillUnmount() {
   clearInterval(this.timerID);
 }
 ```
 最后，我们会实现一个叫tick的方法， Clock组件每秒都会调用它，使用 this.setState() 来适可更新组件的state:
 
-```
+```javascript
 class Clock extends React.Component {
   constructor(props) {
     super(props);
@@ -527,12 +527,12 @@ ReactDOM.render(
 
 1. 不要直接修改 state
 
-```
+```javascript
 // Wrong
 this.state.comment = 'hoho!';
 ```
 这样的代码不会重新渲染组件，而是应该使用setState():
-```
+```javascript
 // Correct
 this.setState({comment: 'Hello'});
 ```
@@ -543,14 +543,14 @@ this.setState({comment: 'Hello'});
 出于性能考虑，React可能会把多个setState() 调用合并成一个调用。
 因为this.props和 this.state可能回忆不更新，所以不要依赖他们的值来更新下一个状态。
 以下代码可能无法更新计数器：
-```
+```javascript
 // Wrong
 this.setState({
   counter: this.state.counter + this.props.increment,
 })
 ```
 要解决这个问题，可以让setState() 接收一个函数而不是一个对象。这个函数用上一个state作为第一个参数，将此次更新被应用时的props作为第二个参数：
-```
+```javascript
 // Correct
 this.setState((state, props) => {
   counter: state.counter + props.increment
@@ -565,7 +565,7 @@ this.setState((state, props) => {
 
 比如 state包含几个独立的变量：
 
-```
+```javascript
 constructor(props){
   super(props);
   this.state = {
@@ -576,7 +576,7 @@ constructor(props){
 ```
 然后可以分别调用setState()来单独的更新它们：
 
-```
+```javascript
 componentDidMount(){
   fetchPosts().then(response => {
     this.setState({
@@ -602,21 +602,21 @@ componentDidMount(){
 这就是为什么称state为局部或者封装的原因。除了拥有并设置了它的组件，其他组件都无法访问。
 
 组件可以选择把它的state作为props向下传递到它的子组件中：
-```
+```javascript
 <FormattedDate date={this.state.date} />
 ```
 FormattedDate子组件会在其props中接受参数date，但是组件本身无法知道它是来自于Clock的state，或者是Clock的props，还是手动输入的：
-```
+```javascript
 function FormattedDate(props) {
   return <h2>It is {props.date.toLocaleTimeString()}.</h2>;
 }
 ```
-state 只能从当前组件传递到影响书中“低于”它们的组件。
+state 只能从当前组件传递到影响树中“低于”它们的组件。
 
 ## 事件处理
 
 React元素的事件处理和DOM元素的很相似，但是有一点语法上的不同：
-* React时间的命名采用小驼峰式(camelCase)，而不是纯小写。
+* React事件的命名采用小驼峰式(camelCase)，而不是纯小写。
 * 使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串。
 
 ```
@@ -648,4 +648,427 @@ function ActionLink() {
   );
 }
 ```
+
+这里，e是一个合成事件。React根据W3C规范来定义这些合成事件，所以不需要担心跨浏览器的兼容性。
+
+使用React时，一般不需要使用 addEventListner 为已经创建的DOM元素添加监听器，只需要在该元素初始渲染的时候添加监听器即可。
+
+当使用ES6 class 语法定义一个组件时，通常的做法是将事件处理函数声明为class中的方法。
+
+```javascript
+class Toggle extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {isToggleOn: true};
+
+    // 为了在回调函数中使用 `this`，这个绑定必不可少
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+
+  handleClick() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn? 'ON': 'OFF'}
+      </button>
+    )
+  }
+} 
+
+ReactDOM.render(
+  <Toggle />,
+  document.getElementById('root')
+);
+```
+发现没，上面setState方法传入的不是一个对象，而是一个函数 参数是state，就是修改之前的的state，后面方法体多了一对大括号，这对大括号就相当于return关键字的作用，返回方法体对象。
+
+关于事件处理函数需要绑定this，因为class的方法默认不会绑定this。所以回调函数需要绑定this,或者直接在绑定事件时使用箭头函数：
+
+```javascript
+<button onClick={() => {this.handleClick()}}>
+  click me
+</button>
+```
+次语法问题在于每次渲染button时都会创建不同的回调函数。在大多数情况下，这没什么问题，但如果该回调函数作为props传入子组件时，这些组件可能会进行额外的重新渲染。我们通常建议在构造函数中绑定又this或者使用 class fields语法来避免这类性能问题。
+
+什么是 class fields 语法？ 现在它还是实验性ES6的语法：
+
+```javascript
+class LoggingButton extends React.Component {
+  //词语发确保`handleClick`内的`this`已经被绑定。
+  // 注意此语法式实验性的
+  handleClick = () => {
+    console.log('this is:', this);
+  }
+
+  render(){
+    return (
+      <button onClick={this.handleClick}>
+        click me
+      </button>
+    )
+  }
+}
+```
+
+---
+#### 向事件处理程序传递参数
+
+```javascript
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row<button/>
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+```
+上面两种写法，在循环中，分别是通过箭头函数和在Function.prototype.bind来实现的。箭头函数方式，事件对象必须显式的进行传递；而通过bind的方式，时间对象以及更多参数将会被隐式传递。
+
+## 条件渲染
+
+React的条件渲染和javascript中的一样，使用javascript运算符if或者条件运算符区创建元素来表现当前的状态，然后React根据它们来更新UI。
+
+```javascript
+function UserGreeting(props){
+  return <h1>Welcome back!</h1>
+}
+
+function GuestGreeting(props){
+  return <h1>Please sign up!</h1>
+}
+```
+创建一个Greeting组件，根据是否登录来决定显示上面哪一个组件：
+
+```javascript
+function Greeting(props){
+  const isLogin = props.isLogin;
+
+  if(isLogin){
+    return <UserGreeting />;
+  }
+
+  return <GuestGreeting />
+}
+
+ReactDOM.render(
+  <Greeting isLogin={false} />,
+  document.getElementById('root')
+)
+```
+
+#### 元素变量
+
+可以使用变量来存储元素，使你有条件地渲染组件的一部分，而其他渲染部分不会改变。
+
+以下两个组件，分别是注销和登录按钮：
+
+```javascript
+function LoginButton(props){
+  return (
+    <button onClick={props.onClick}>
+      Login
+    </button>
+  )
+}
+
+function LogoutButton(props){
+  return(
+    <button onClick={props.onClick}>
+      Logout
+    </button>
+  )
+}
+```
+
+下面的示例中，创建一个叫LoginControl的有状态的组件。
+
+根据状态来渲染LoginButton或者LogoutButton 同时他还会渲染上一个实例中的Greeting组件：
+
+```javascript
+class LoginControl extend React.Component {
+  constructor(props){
+    super(props);
+
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLogin: false};
+  }
+
+  handleLoginClick() {
+    this.setState({isLogin: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLogin: false});
+  }
+
+  render() {
+    const isLogin = this.state.isLogin;
+    let button;
+    if(isLogin){
+      button = <LogoutButton onClick={this.handleLogoutClick} />;
+      }else{
+      button = <LoginButton onClick={this.handleLoginClick} />
+    }
+    
+    return (
+      <div>
+        <Greeting isLogin={isLogin}>
+        {button}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(
+  <LoginControl />,
+  document.getElementById('root')
+);
+```
+
+#### 与运算符 &&  三目运算符（condition ? true : false）
+
+运算符的运用很简单，所有的逻辑比较运算等写在一对{}里面即可。
+
+## 列表 & Key
+
+```javascript
+cnst numbers = [1,2,3,4,5];
+const doubled = numbers.map(number => number*2)
+console.log(doubled);
+```
+以上代码打印出： [2,4,6,8,10]。
+在React中，把数组转化为元素列表的过程是相似的。
+
+#### 渲染多个组件
+你可以通过使用 {} 在JSX内构建一个元素集合。
+
+```javascript
+const numbers = [1,2,3,4,5];
+const listItems = numbers.map(number => <li>{number}</li>)
+```
+这样我们就把数据和要渲染的UI就联系起来了，然后通过render方法，渲染到DOM中：
+```javascript
+ReactDOM.render(
+  <ul>{listItems}</ul>,
+  document.getElementById('root')
+)
+```
+#### 基础组件列表
+
+```javascript
+function NumberList(props){
+  const numbers = props.numbers;
+  const listItems = numbers.map(number => 
+   <li key={number.toString()}>
+    {number}
+   </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  )
+}
+
+const numbers = [1,2,3,4,5];
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+)
+```
+
+上面代码中 li标签需要一个key属性，它帮助React识别哪些元素改变（添加和删除），所以一定不要忘记循环时要加key（不重复）。
+
+## 表单
+在React里，HTML表单元素的工作方式和其他的DOM元素有些不同，这是因为表单通常会保持一些内部的state。（默认的HTML表单行为）
+
+#### 受控组件
+在HTML中，表单元素（除过个别）通常自己维护state，并根据用户输入进行更新。而在React中，可变状态通常保存在组件的state属性中，只能使用setState()改变和更新。
+
+将两者结合起来，使React的state成为“唯一数据源”。渲染表单的React组件还控制着用户输入过程中表单发生的操作。被React以这种方式控制取值的表单输入元素就叫做“受控组件”。（用javascript的方式获取input的值，写进React组件的state，并赋值给input）
+
+select标签选中状态在HTML中使用selected属性，在React中只需要给select根元素加上value即可，更方便使用
+
+## 状态提升
+> 通常，多个组件需要反映相同的变化数据，我们建议将共享状态提升到最近的共同父组件中去。
+
+计算一个睡在给定温度下是否会沸腾：
+
+```javascript
+function BoilingVerdict(props) {
+  if(props.celsius >= 100) {
+    return <p>水沸腾了</p>
+  }
+  return <p>水没有沸腾</p>
+}
+```
+接下来创建一个名为Calculator的组件。渲染一个用于输入温度的input 并且将其保存在 this.state.temprature中。
+
+```javascript
+class Calculator extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {temperature: ''};
+  }
+  handleChange(e){
+    this.setState({
+      temprature: e.target.value
+    })
+  }
+
+  render(){
+    const temperature = this.state.temperature;
+    return (
+      <fieldset>
+        <legend>请输入温度</legend>
+        <input 
+          value={temprature}
+          onChange={this.handleChange}
+          <BoilingVerdict celsius={parseFloat(temperature)} />
+        />
+      </fieldset>
+    )
+  }
+}
+```
+
+在以上代码基础上需要添加一个显示华氏度的输入框，并且保持两个输入框数据同步。
+我们需要先从Calculator组建中抽离出TemperatureInput,然后为其添加一个新的scale 属性，c或者f:
+
+```javascript
+const scaleNames: {
+  c: 'Celsius',
+  f: 'Fahrenheit'
+}
+
+class TemperatureInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.state={temperature: ''}
+  }
+
+  handleChange(e){
+    this.setState({
+      temperature: e.target.value
+    });
+  }
+
+  render(){
+    const temperature = this.state.temperature;
+    const scale = this.props.scale;
+
+    return (
+      <fields>
+        <legend>在 {scaleNames[scale]} 输入温度: </legend>
+        <input 
+          value={temperature}
+          onChange={this.handleChange}
+        />
+      </fields>
+    )
+  }
+}
+
+//现在可以修改Calculator组件让它渲染两个独立的温度输入框：
+
+class Calculator extends React.Component {
+  render(){
+    return (
+      <div>
+        <Temperature scale="c" />
+        <Temperature scale="f" />
+      </div>
+    )
+  }
+}
+
+// 现在有了两个输入框，发现在其中一个输入，另一个并不会更新温度，所以需要我们编写转换函数
+```
+#### 编写转换函数
+
+```javascript
+function toCelsius(fahrenheit) {
+  return (fahrenheit - 32)*5/9;
+}
+
+function toFahrenheit(celsius){
+  return (celsius*9/5) + 32;
+}
+
+//上面两个函数仅作数值转换，我们需要能接受字符串类型的temperature和转换函数作为参数并返回一个字符串。输入无效时，返回空字符串，反之，返回保留三位小数并四舍五入转换结果：
+
+function tryConvert(temperature, convert){
+  const input = parseFloat(temperature);
+  if(Number.isNaN(input)){
+    return '';
+  }
+
+  const output = convert(input);
+  const rounded = Math.round(output*1000)/1000;
+  return rounded.toString();
+}
+
+//试一试 tryConvert('abc', toCelsius)
+```
+---
+
+#### 状态提升
+我们希望两个输入框的数值彼此同步。
+
+在React中，将多个组件中需要共享的 state向上移动到最近的共同父组件，便可实现共享state，这就是 * 状态提升 * 上面的例子，我们应该将temperature提升到Calculator组件中：
+```javascript
+class Calculator extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+    this.handleFahrenheitChange = this.handleFahrenheit.bind(this);
+    this.state = {temperature: '', scale: 'c'};
+  }
+
+  handleCelsiusChange(temperature){
+    this.setState({scale: 'c', temperature});
+  }
+
+  handleFahrenheitChange(temperature){
+    this.setState({scale: 'f', temperature});
+  }
+
+  render(){
+    const scale = this.state.scale;
+    const temperature = this.state.temperature;
+    const celsius = scale === 'f' ? tryConvert(temperature, toCelius): temperature;
+    const fahrenheit = scale === 'c' ? tryConvert(temperature, toFahrenheit): temperature;
+
+    return (
+      <div>
+        <TemperatureInput 
+          scale="c"
+          temperature={celsius}
+          onTemperatureChange={this.handleCelsiusChange}
+        />
+        <TemperatureInput 
+          scale="f"
+          temperature={celsius}
+          onTemperatureChange={this.handleFahrenheitChange}
+        />
+        <BoilingVerdict 
+          celsius={parseFloat(celsius)}
+        />
+      </div>
+    )
+  }
+}
+```
+以上就是完成了数据的同步，在vue中我们只需要指向一个数据源，数据双向绑定就直接可以完成此功能，单向数据流和双向数据流机制不一样。
+
+
+## 组合 vs 继承
+
+## React 哲学
+
+
+
 
